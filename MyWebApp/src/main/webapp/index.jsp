@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World!</h2>
+<h2>We are implementing CI using Jenkins, Tomcat, Maven and GitHub !!!!!</h2>
 </body>
 </html>
