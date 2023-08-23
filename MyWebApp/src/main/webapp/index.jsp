@@ -4,7 +4,7 @@
 	<title>My Web App </title>
 </head>
 <body>
-<h2>We are Integrating Nexus and Slack with Jenkins!!!!!!!!
+<h2>We are implementing CI using Jenkins scripted pipeline job !!!!!!!!
 </h2>
 
 </body>
