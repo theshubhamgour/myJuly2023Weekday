@@ -84,7 +84,7 @@ pipeline {
         }
         stage ("Final notify") {
             steps {
-            slackSend channel: 'july-2023-weekday-batch,qa-testing-team,', message: 'product owner - PROD deployment was done, please inform end customers..'
+            slackSend channel: 'july-2023-weekday-batch,qa-testing-team,product-owners-teams', message: 'product owner - PROD deployment was done, please inform end customers..'
          }
        }
     }
