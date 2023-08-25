@@ -16,7 +16,7 @@ pipeline {
         
         stage ("Code scan") {
             steps {
-                withSonarQubeEnv("SonarQube") {
+                withSonarQubeEnv("SonarQubeasd") {
                     sh "mvn sonar:sonar -f MyWebApp/pom.xml"      
                 }
             }
@@ -86,6 +86,18 @@ pipeline {
             steps {
             slackSend channel: 'july-2023-weekday-batch,qa-testing-team,product-owners-teams', message: 'product owner - PROD deployment was done, please inform end customers..'
          }
-       }
+       }        
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed'
+        }
+        success {
+            echo 'Pipeline succeeded'
+        }
+        failure {
+            slackSend channel: 'july-2023-weekday-batch', message: 'Pipeline build have failed, please troubleshoot..'
+        }
     }
 }
