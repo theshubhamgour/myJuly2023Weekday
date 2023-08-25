@@ -49,7 +49,7 @@ pipeline {
         stage ("DEV approve") {
             steps {
                     echo "Taking approval from DEV Manager for QA Deployment"     
-                    timeout(time: 4, unit: 'DAYS') {
+                    timeout(time: 8, unit: 'HOURS') {
                     input message: 'Do you approve QA Deployment?', submitter: 'admin'
             }
           }
