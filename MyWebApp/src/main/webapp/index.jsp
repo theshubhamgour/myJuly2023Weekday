@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>My Web App </title>
-</head>
+<html>
 <body>
-<h2>We are creating CICD pipeline in Azure DevOps !!!!!!!!
+<h2>We are creating testing SonarQube integration with GitHub Actions !!!!!!!!
 </h2>
 
 </body>
