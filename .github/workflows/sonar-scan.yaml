@@ -1,13 +1,13 @@
-name: CI/CD workflow for Maven Build and Sonar Code scan
+name: PR Quality Check - Maven Build and SonarQube Scan
 
 on:
-  push:
+  pull_request:
     branches:
       - main
   workflow_dispatch:
 
 jobs:
-  build:
+  sonar-pr-check:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,13 +23,16 @@ jobs:
     - name: Build with Maven
       run: mvn install -f MyWebApp/pom.xml
 
-    - name: SonarQube Scan
+    - name: SonarQube Scan (Pull Request)
       uses: sonarsource/sonarqube-scan-action@master
       with:
         projectBaseDir: .
         args: >
           -Dsonar.organization=my-org
           -Dsonar.projectKey=my-Java-web-app
+          -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
+          -Dsonar.pullrequest.branch=${{ github.head_ref }}
+          -Dsonar.pullrequest.base=${{ github.base_ref }}
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -39,10 +42,10 @@ jobs:
       uses: sonarsource/sonarqube-quality-gate-action@master
       continue-on-error: true
 
-    - name: Handle Quality Gate result
+    - name: Handle Quality Gate Result
       run: |
         if [ "${{ steps.sonarqube-quality-gate-check.outcome }}" == "failure" ]; then
-          echo "⚠️ Warning: SonarQube Quality Gate FAILED, but continuing pipeline."
+          echo "⚠️ Warning: SonarQube Quality Gate FAILED, but PR check continues."
         else
-          echo "✅ SonarQube Quality Gate PASSED."
+          echo "✅ SonarQube Quality Gate PASSED for PR."
         fi
